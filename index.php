@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
@@ -29,8 +32,16 @@
         <div class="card card-login mx-auto text-center bg-dark">
             <div class="card-header mx-auto bg-dark">
                 <span> <img src="https://amar.vote/assets/img/amarVotebd.png" class="w-75" alt="Logo"> </span><br/>
-                            <span class="logo_title mt-5">LOGIN</span>
-    <!--            <h1>--><?php //echo $message?><!--</h1>-->
+                    <span class="logo_title mt-5">LOGIN</span>
+
+                    <?php
+                    if(isset($_SESSION['nao_autenticado'])): ?>
+                        <p><small><small>Usuário ou Senhas
+                        Inválidos!</small></small></p> 
+                    <?php 
+                    endif; 
+                    unset($_SESSION['nao_autenticado']);
+                    ?>
 
             </div>
             <div class="card-body">
@@ -52,7 +63,6 @@
                     <div class="form-group">
                         <input type="submit" name="btn" value="Login" class="btn btn-outline-danger float-right login_btn">
                     </div>
-
                 </form>
             </div>
         </div>
