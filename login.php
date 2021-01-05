@@ -25,15 +25,24 @@ if($row > 0){
     $_SESSION['usuario'] = $usuario;
     $_SESSION['nome_usuario'] = $dado["nome"];
     $_SESSION['cargo_usuario'] = $dado["cargo"];
-    header('Location: painel_admin.php');
-    
-    // if($_Session['cargo_usuario'] = 'adimn') || $_SESSION['cargo_usuario'] = 'gerente'){
-    //     header('Location : painel_admin.php');
-    //     exit();
-    // }
-    
-    exit();
 
+    if($_SESSION['cargo_usuario'] == 'Administrador' || $_SESSION['cargo_usuario'] == 'Gerente') {
+    header('Location: painel_admin.php');
+    exit();
+    }
+
+    if($_SESSION['cargo_usuario'] == 'Tesoureiro') {
+        header('Location: painel_tesouraria.php');
+        exit();
+    }
+
+    if($_SESSION['cargo_usuario'] == 'Funcionário') {
+        header('Location: painel_funcionario.php');
+        exit();
+    }
+    
+
+    exit();
 }else{
     $_SESSION['nao_autenticado'] = true;
     header('Location: index.php');

@@ -1,6 +1,7 @@
 <?php
 session_start();
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
@@ -36,11 +37,10 @@ session_start();
 
                     <?php
                     if(isset($_SESSION['nao_autenticado'])): ?>
-                        <p><small><small>Usuário ou Senhas
-                        Inválidos!</small></small></p> 
+                        <p><small><small>Usuário ou Senhas Inválidos!</small></small></p> 
                     <?php 
-                    endif; 
-                    unset($_SESSION['nao_autenticado']);
+                        endif; 
+                        unset($_SESSION['nao_autenticado']);
                     ?>
 
             </div>
