@@ -16,9 +16,7 @@ $senha =  mysqli_real_escape_string($conexao, $_POST['senha']);
 $query = "select * from usuarios where usuario = '{$usuario}' and senha = '{$senha}' ";
 
 $result = mysqli_query($conexao, $query);
-
 $dado = mysqli_fetch_array($result);
-
 $row = mysqli_num_rows($result);
 
 if($row > 0){
