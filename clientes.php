@@ -77,13 +77,12 @@ include('conexao.php');
                   </div>
                   <div class="card-body">
                     <div class="table-responsive">
-
+                    
                         <!-- CADASTRAR NA TABELA (CRUD) -->
                         <?php
                            $query = "select * from clientes order by nome asc";
 
                            $result = mysqli_query($conexao, $query);
-                           $dado = mysqli_fetch_array($result);
                            $row = mysqli_num_rows($result);
                            
                            if($row == ''){  
@@ -93,6 +92,7 @@ include('conexao.php');
                             }else{
 
                               ?>  
+                              
 
                       <table class="table">
                         <thead class=" text-primary">
@@ -112,22 +112,26 @@ include('conexao.php');
                             <th>
                             CPF
                           </th>
-                          <th>
+                           </th>
+                            <th>
                             Data
+                          </th>
+                           </th>
+                            <th>  
+                            Ações
                           </th>
                         </thead>
                         <tbody>
                          
                           <?php 
-                            while($res_1 = $dado){
+                            while($res_1 = mysqli_fetch_array($result)){
                               $nome = $res_1['nome'];
                               $telefone = $res_1['telefone'];
                               $endereco = $res_1['endereco'];
                               $email = $res_1['email'];
                               $cpf = $res_1['cpf'];
                               $data = $res_1['data'];
-
-                              ?>
+                          ?>
 
                               <tr>
                                 <td><?php echo $nome; ?></td>
@@ -136,14 +140,18 @@ include('conexao.php');
                                 <td><?php echo $email; ?></td>
                                 <td><?php echo $cpf; ?></td>
                                 <td><?php echo $data; ?></td>
+                                <td>Ações</td>
                               </tr>
 
                               <?php
-                                  }
+                                }
                               ?>
 
                         </tbody>
                       </table>
+                          <?php
+                             }
+                          ?>
                     </div>
                   </div>
                 </div>
@@ -199,50 +207,39 @@ include('conexao.php');
         </div>
       </div>    
 
-
-
-
 </body>
 </html>
 
 <!-- CADASTRAR -->
 
 <?php
-if(isset($_POST['button'])){
-  $nome = $_POST['txtnome'];  
-  $telefone = $_POST['txttelefone'];  
-  $endereco = $_POST['txtendereco'];  
-  $email = $_POST['txtemail'];  
-  $cpf = $_POST['txtcpf'];  
+  if(isset($_POST['button'])){
+    $nome = $_POST['txtnome'];  
+    $telefone = $_POST['txttelefone'];  
+    $endereco = $_POST['txtendereco'];  
+    $email = $_POST['txtemail'];  
+    $cpf = $_POST['txtcpf'];  
 
-  //VERIFICAR SE O CPF JA ESTA CADASTRADO
-  $query_verificar = "select * from clientes where cpf = '$cpf' ";
+    //VERIFICAR SE O CPF JA ESTA CADASTRADO
+    $query_verificar = "select * from clientes where cpf = '$cpf' ";
 
-  $result_verificar = mysqli_query($conexao, $query_verificar);
-  $row_verificar = mysqli_num_rows($result_verificar);  
+    $result_verificar = mysqli_query($conexao, $query_verificar);
+    $row_verificar = mysqli_num_rows($result_verificar);  
 
-  if($row_verificar > 0){
-    echo "<script language='javascript'> window.alert('O Cliente ja está Cdastrado'); </script>";
-    exit();
+    if($row_verificar > 0){
+      echo "<script language='javascript'> window.alert('O Cliente ja está Cdastrado'); </script>";
+      exit();
+    }
+
+    $query = "INSERT into clientes (nome, telefone, endereco, email, cpf, data) 
+      VALUES ('$nome', '$telefone', '$endereco', '$email', '$cpf', curDate() )";
+
+    $result = mysqli_query($conexao, $query);
+
+    if($result == ''){
+      echo "<script language='javascript'> window.alert('Erro :/ Tente Novamente'); </script>";
+    }else{
+      echo "<script language='javascript'> window.alert('Cadastrado com Sucesso'); </script>";
+    }
   }
-
-  $query = "INSERT into clientes (nome, telefone, endereco, email, cpf, data) 
-    VALUES ('$nome', '$telefone', '$endereco', '$email', '$cpf', curDate() )";
-
-  $result = mysqli_query($conexao, $query);
-
-  if($result == ''){
-    echo "<script language='javascript'> window.alert('Erro :/ Tente Novamente'); </script>";
-  }else{
-    echo "<script language='javascript'> window.alert('Cadastrado com Sucesso'); </script>";
-  }
-}
 ?>
-
-<!-- MASCARAS DE REDE -->
-<script type="text/javascript">
-    $('document').ready(function(){
-        $('#txttelefone').mask('(00) 00000-0000');
-        $('#txtcpf').mask('000.000.000-00');
-    });
-</script>
