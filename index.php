@@ -20,7 +20,7 @@ session_start();
     <!-- Font Awsome -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/js/all.min.js"></script>
 
-    <title>Form</title>
+    <title>Login Systec</title>
   </head>
   <body>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -33,15 +33,17 @@ session_start();
         <div class="card card-login mx-auto text-center bg-dark">
             <div class="card-header mx-auto bg-dark">
                 <span> <img src="https://amar.vote/assets/img/amarVotebd.png" class="w-75" alt="Logo"> </span><br/>
-                    <span class="logo_title mt-5">LOGIN</span>
+                    
+                <span class="logo_title mt-5">LOGIN</span>
 
-                    <?php
-                    if(isset($_SESSION['nao_autenticado'])): ?>
-                        <p><small><small>Usuário ou Senhas Inválidos!</small></small></p> 
-                    <?php 
-                        endif; 
-                        unset($_SESSION['nao_autenticado']);
-                    ?>
+                <?php 
+                
+                if(isset($_SESSION['nao_autenticado'])): ?>
+                    <p><small><small>Usuário ou Senha Inválidos</small></small></p>
+                <?php 
+                    endif;
+                    unset($_SESSION['nao_autenticado']);
+                ?>
 
             </div>
             <div class="card-body">

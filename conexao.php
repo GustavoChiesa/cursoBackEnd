@@ -5,6 +5,6 @@ define('USUARIO', 'root');
 define('SENHA', 'root');
 define('BD', 'systec');
 
-$conexao = new mysqli(HOST, USUARIO, SENHA, DB) or die('error');
+$conexao = mysqli_connect(HOST, USUARIO, SENHA, BD) or die ('erro');
 
 ?>

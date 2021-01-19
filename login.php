@@ -1,17 +1,15 @@
 <?php
 
-//Caso o campo usario e senha estiverem vazios e 
-//o usuario der um login a pagina da um f5
 session_start();
 include('conexao.php');
 
 if(empty($_POST['usuario']) || empty($_POST['senha'])){
-    header('Location : index.php');
+    header('Location: index.php');
     exit();
 }
 
 $usuario = mysqli_real_escape_string($conexao, $_POST['usuario']);
-$senha =  mysqli_real_escape_string($conexao, $_POST['senha']);
+$senha = mysqli_real_escape_string($conexao, $_POST['senha']);
 
 $query = "select * from usuarios where usuario = '{$usuario}' and senha = '{$senha}' ";
 
@@ -21,24 +19,23 @@ $row = mysqli_num_rows($result);
 
 if($row > 0){
     $_SESSION['usuario'] = $usuario;
-    $_SESSION['nome_usuario'] = $dado["nome"];
-    $_SESSION['cargo_usuario'] = $dado["cargo"];
+    $_SESSION['nome_usuario'] = $dado['nome'];
+    $_SESSION['cargo_usuario'] = $dado['cargo'];
 
-    if($_SESSION['cargo_usuario'] == 'Administrador' || $_SESSION['cargo_usuario'] == 'Gerente') {
+    if($_SESSION['cargo_usuario'] == 'Administrador' || $_SESSION['cargo_usuario'] == 'Gerente'){
     header('Location: painel_admin.php');
-    exit();
+        exit();
     }
 
-    if($_SESSION['cargo_usuario'] == 'Tesoureiro') {
+    if($_SESSION['cargo_usuario'] == 'Tesoureiro'){
         header('Location: painel_tesouraria.php');
-        exit();
-    }
+            exit();
+        }
 
-    if($_SESSION['cargo_usuario'] == 'Funcionário') {
+    // if($_SESSION['cargo_usuario'] == 'Funcionario'){
         header('Location: painel_funcionario.php');
-        exit();
-    }
-    
+        //     exit();
+        // }
 
     exit();
 }else{
@@ -46,4 +43,5 @@ if($row > 0){
     header('Location: index.php');
     exit();
 }
+
 ?>
